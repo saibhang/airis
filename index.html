@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airis - AI 工具，一目了然。Smart tools. Simple access.</title>
+    <meta name="description" content="发现最好的AI工具和服务 - 包括大语言模型、创意工具等">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#6366f1',
+                        'primary-dark': '#4f46e5',
+                        'secondary': '#f0f9ff',
+                        'accent': '#818cf8',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gradient-to-br from-secondary to-white min-h-screen">
+    <!-- 导航栏 -->
+    <nav class="bg-white/80 backdrop-blur-md fixed w-full z-50 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">AIris</span>
+                    <span class="ml-2 text-sm text-gray-600">AI 工具，一目了然。Smart tools. Simple access.</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main class="pt-20 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- 搜索框 -->
+            <div class="mb-12">
+                <div class="max-w-2xl mx-auto">
+                    <div class="relative">
+                        <input type="text" 
+                               id="search"
+                               class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                               placeholder="搜索AI工具..."
+                               onkeyup="searchTools()">
+                        <div class="absolute right-3 top-3 text-gray-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 热门工具 -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold mb-6 text-gray-900 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                    </svg>
+                    热门推荐
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <a href="https://www.anthropic.com" class="block bg-gradient-to-br from-white to-secondary rounded-xl shadow-sm hover:shadow-lg transition-all transform hover:-translate-y-1 p-6 border border-gray-100">
+                        <div class="flex items-center space-x-4">
+                            <div class="relative">
+                                <img src="logos/claude.png" alt="Claude" class="w-12 h-12 object-contain">
+                                <span class="absolute -top-2 -right-2 bg-primary text-white text-xs px-2 py-1 rounded-full">Top 1</span>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900">Claude</h3>
+                                <p class="text-gray-500 text-sm">最受欢迎的AI助手</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://www.perplexity.ai" class="block bg-gradient-to-br from-white to-secondary rounded-xl shadow-sm hover:shadow-lg transition-all transform hover:-translate-y-1 p-6 border border-gray-100">
+                        <div class="flex items-center space-x-4">
+                            <div class="relative">
+                                <img src="logos/perplexity.png" alt="Perplexity" class="w-12 h-12 object-contain">
+                                <span class="absolute -top-2 -right-2 bg-primary text-white text-xs px-2 py-1 rounded-full">Top 2</span>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900">Perplexity</h3>
+                                <p class="text-gray-500 text-sm">智能搜索引擎</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://www.notion.so/product/ai" class="block bg-gradient-to-br from-white to-secondary rounded-xl shadow-sm hover:shadow-lg transition-all transform hover:-translate-y-1 p-6 border border-gray-100">
+                        <div class="flex items-center space-x-4">
+                            <div class="relative">
+                                <img src="logos/notion.png" alt="Notion AI" class="w-12 h-12 object-contain">
+                                <span class="absolute -top-2 -right-2 bg-primary text-white text-xs px-2 py-1 rounded-full">Top 3</span>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900">Notion AI</h3>
+                                <p class="text-gray-500 text-sm">智能笔记与写作</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- AI大语言模型部分 -->
+            <section class="mb-12" id="llm-section">
+                <h2 class="text-2xl font-bold mb-6 text-gray-900 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                    </svg>
+                    AI大语言模型
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <a href="https://www.anthropic.com" class="block bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow p-6">
+                        <div class="flex items-center space-x-4">
+                            <img src="logos/claude.png" alt="Claude" class="w-12 h-12 object-contain">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900">Claude</h3>
+                                <p class="text-gray-500 text-sm">Anthropic的AI助手</p>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href="https://www.deepseek.com" class="block bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow p-6">
+                        <div class="flex items-center space-x-4">
+                            <img src="logos/deepseek.png" alt="Deepseek" class="w-12 h-12 object-contain">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900">Deepseek</h3>
+                                <p class="text-gray-500 text-sm">开源大语言模型</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://gemini.google.com/" class="block bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow p-6">
+                        <div class="flex items-center space-x-4">
+                            <img src="logos/Germini.png" alt="Germini" class="w-12 h-12 object-contain">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900">Germini</h3>
+                                <p class="text-gray-500 text-sm">Google的AI模型</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://tingwu.aliyun.com/" class="block bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow p-6">
+                        <div class="flex items-center space-x-4">
+                            <img src="logos/tingwu.png" alt="通义听悟" class="w-12 h-12 object-contain">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900">通义听悟</h3>
+                                <p class="text-gray-500 text-sm">阿里云AI助手</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://xinghuo.xfyun.cn/" class="block bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow p-6">
+                        <div class="flex items-center space-x-4">
+                            <img src="logos/xinghuo.png" alt="讯飞星火" class="w-12 h-12 object-contain">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900">讯飞星火</h3>
+                                <p class="text-gray-500 text-sm">科大讯飞AI模型</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://kimi.moonshot.cn/" class="block bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow p-6">
+                        <div class="flex items-center space-x-4">
+                            <img src="logos/kimi.png" alt="KIMI" class="w-12 h-12 object-contain">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900">KIMI</h3>
+                                <p class="text-gray-500 text-sm">月之暗面AI助手</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- AI创意工具部分 -->
+            <section id="tools-section">
+                <h2 class="text-2xl font-bold mb-6 text-gray-900 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
+                    </svg>
+                    AI创意工具
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <a href="https://www.perplexity.ai" class="block bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow p-6">
+                        <div class="flex items-center space-x-4">
+                            <img src="logos/perplexity.png" alt="Perplexity" class="w-12 h-12 object-contain">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900">Perplexity</h3>
+                                <p class="text-gray-500 text-sm">AI驱动的搜索引擎</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://www.notion.so/product/ai" class="block bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow p-6">
+                        <div class="flex items-center space-x-4">
+                            <img src="logos/notion.png" alt="Notion AI" class="w-12 h-12 object-contain">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900">Notion AI</h3>
+                                <p class="text-gray-500 text-sm">智能笔记与写作</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://www.jasper.ai/" class="block bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow p-6">
+                        <div class="flex items-center space-x-4">
+                            <img src="logos/Jasper.png" alt="Jasper" class="w-12 h-12 object-contain">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900">Jasper</h3>
+                                <p class="text-gray-500 text-sm">AI内容创作平台</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://writesonic.com/" class="block bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow p-6">
+                        <div class="flex items-center space-x-4">
+                            <img src="logos/Writesonic.png" alt="Writesonic" class="w-12 h-12 object-contain">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900">Writesonic</h3>
+                                <p class="text-gray-500 text-sm">AI写作助手</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://runwayml.com/" class="block bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow p-6">
+                        <div class="flex items-center space-x-4">
+                            <img src="logos/runwayml.png" alt="Runway" class="w-12 h-12 object-contain">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900">Runway</h3>
+                                <p class="text-gray-500 text-sm">AI视频创作工具</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://www.dochero.ai/" class="block bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow p-6">
+                        <div class="flex items-center space-x-4">
+                            <img src="logos/dochero.png" alt="DocHero AI" class="w-12 h-12 object-contain">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900">DocHero AI</h3>
+                                <p class="text-gray-500 text-sm">文档智能助手</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://xiezuocat.com/" class="block bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow p-6">
+                        <div class="flex items-center space-x-4">
+                            <img src="logos/xiezuocat.png" alt="密塔写作猫" class="w-12 h-12 object-contain">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900">密塔写作猫</h3>
+                                <p class="text-gray-500 text-sm">中文写作助手</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://www.canva.com/" class="block bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow p-6">
+                        <div class="flex items-center space-x-4">
+                            <img src="logos/canva.png" alt="Canva" class="w-12 h-12 object-contain">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900">Canva</h3>
+                                <p class="text-gray-500 text-sm">AI设计平台</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-white border-t border-gray-200">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <p class="text-center text-gray-500 text-sm">© 2025 Airis - AI 工具，一目了然。Smart tools. Simple access.</p>
+        </div>
+    </footer>
+
+    <!-- 搜索功能脚本 -->
+    <script>
+        function searchTools() {
+            const searchInput = document.getElementById('search').value.toLowerCase();
+            const allTools = document.querySelectorAll('section a');
+            
+            allTools.forEach(tool => {
+                const toolName = tool.querySelector('h3').textContent.toLowerCase();
+                const toolDesc = tool.querySelector('p').textContent.toLowerCase();
+                
+                if (toolName.includes(searchInput) || toolDesc.includes(searchInput)) {
+                    tool.style.display = 'block';
+                } else {
+                    tool.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html> 
